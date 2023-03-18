@@ -123,6 +123,8 @@ def check_progress(vid):
 
 # 先下载再存入临时文件
 def read_URL(vid,url):
+    if True:
+        return url
     response = requests.get(url)
     content_type = response.headers.get("Content-type")
     if response.status_code!=200 or not content_type.startswith("video"):
@@ -162,7 +164,7 @@ def handle_video_cut(json):
     emit("cut_status",{"code":200,"message":"vid","vid":vid})
     emit("cut_status",{"code":200,"message":"reading url"})
     # 使用本地路径方便测试
-    local_path = read_local(url=json.get("url"))
+    local_path = read_URL(vid,url=json.get("url"))
     progress_map[vid] = 0.5
     start,end =json['start'],json['end']
     command = f"ffmpeg -i {local_path} -ss {start} -to {end} -c copy {vid}_output.mp4"
