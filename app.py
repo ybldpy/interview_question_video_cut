@@ -135,6 +135,7 @@ def read_URL(vid,url):
     with open(file_name, 'wb') as file:
         for data in response.iter_content(block_size):
             file.write(data)
+    return file_name
 # 本地直接读取
 def read_local(url):
     return url
